@@ -32,11 +32,26 @@ namespace Wba.Oefening.RateAMovie.Web.Controllers
         public async Task<IActionResult> Register(AccountRegisterViewModel accountRegisterViewModel)
         {
             //check if username exists
+            if( _movieContext.Users.Any(u => u.Username.Equals(accountRegisterViewModel.Username)))
+            {
+                ModelState.AddModelError("", "Credentials seem to exist in database. Would you like to request a password reset?");
+            }
             if(!ModelState.IsValid)
             {
                 return View(accountRegisterViewModel);
             }
-            
+            //register the user using the service
+            var result = await _accountService.RegisterAsync(
+                accountRegisterViewModel.Username,
+                accountRegisterViewModel.Password,
+                accountRegisterViewModel.Firstname,
+                accountRegisterViewModel.Lastname
+                );
+            if(!result)
+            {
+                ModelState.AddModelError("", "Something went wrong!");
+                return View(accountRegisterViewModel);
+            }
             return RedirectToAction("Registered");
         }
 
@@ -53,8 +68,9 @@ namespace Wba.Oefening.RateAMovie.Web.Controllers
             {
                 return View(accountLoginViewModel);
             }
-            var result = aw
-            if (user == null || !Argon2.Verify(user?.Password, accountLoginViewModel.Password))
+            var result = await _accountService
+                .LoginAsync(accountLoginViewModel.Username, accountLoginViewModel.Password);
+            if (!result)
             {
                 ModelState.AddModelError("", "Please provide correct credentials!");
                 return View(accountLoginViewModel);
