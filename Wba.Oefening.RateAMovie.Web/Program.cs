@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Wba.Oefening.RateAMovie.Web.Data;
+using Wba.Oefening.RateAMovie.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MovieContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("MovieDb")
     ));
-
+//register own services
+builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<IFormHelpersService,FormHelpersService>();
+builder.Services.AddTransient<IAccountService,AccountService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

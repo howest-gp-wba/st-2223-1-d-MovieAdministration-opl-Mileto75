@@ -8,17 +8,19 @@ using Wba.Oefening.RateAMovie.Core.Entities;
 using Wba.Oefening.RateAMovie.Web.ViewModels;
 using Isopoh.Cryptography.Argon2;
 using Microsoft.EntityFrameworkCore;
+using Wba.Oefening.RateAMovie.Web.Services;
 
 namespace Wba.Oefening.RateAMovie.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly MovieContext _movieContext;
+        private readonly IAccountService _accountService;
         
-
-        public AccountController(MovieContext movieContext)
+        public AccountController(MovieContext movieContext, IAccountService accountService)
         {
             _movieContext = movieContext;
+            _accountService = accountService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -30,32 +32,11 @@ namespace Wba.Oefening.RateAMovie.Web.Controllers
         public async Task<IActionResult> Register(AccountRegisterViewModel accountRegisterViewModel)
         {
             //check if username exists
-            if( _movieContext.Users.Any(u => u.Username.Equals(accountRegisterViewModel.Username)))
-            {
-                ModelState.AddModelError("", "Credentials seem to exist in database. Would you like to request a password reset?");
-            }
             if(!ModelState.IsValid)
             {
                 return View(accountRegisterViewModel);
             }
-            User user = new User();
-            user.Username = accountRegisterViewModel.Username;
-            user.FirstName = accountRegisterViewModel.Firstname;
-            user.LastName = accountRegisterViewModel.Lastname;
-            user.Password = Argon2.Hash(accountRegisterViewModel.Password);
-            //add to the context
-            _movieContext.Users.Add(user);
-            try
-            {
-                await _movieContext.SaveChangesAsync();
-            }
-            catch (DbUpdateException e)
-            {
-                //perform logging here in production environment
-                Console.WriteLine(e.Message);
-                ModelState.AddModelError("", "Something went wrong...Please try again later..");
-                return View();
-            }
+            
             return RedirectToAction("Registered");
         }
 
@@ -72,10 +53,7 @@ namespace Wba.Oefening.RateAMovie.Web.Controllers
             {
                 return View(accountLoginViewModel);
             }
-            //check user  and
-            //check credentials
-            var user = await _movieContext.Users.FirstOrDefaultAsync(u => u.Username.Equals(accountLoginViewModel.Username));
-
+            var result = aw
             if (user == null || !Argon2.Verify(user?.Password, accountLoginViewModel.Password))
             {
                 ModelState.AddModelError("", "Please provide correct credentials!");

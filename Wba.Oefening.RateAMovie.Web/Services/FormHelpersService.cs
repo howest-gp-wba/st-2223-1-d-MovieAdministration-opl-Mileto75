@@ -10,7 +10,7 @@ using Wba.Oefening.RateAMovie.Web.Models;
 
 namespace Wba.Oefening.RateAMovie.Web.Services
 {
-    public class FormHelpersService
+    public class FormHelpersService : IFormHelpersService
     {
         private readonly MovieContext _movieContext;
 
@@ -38,18 +38,18 @@ namespace Wba.Oefening.RateAMovie.Web.Services
                 }).ToListAsync();
             }
             return await _movieContext.Directors.Select(d => new CheckboxHelper
-                {
-                    Id = d.Id,
-                    Text = $"{d.FirstName} {d.LastName}"
-                }).ToListAsync();
+            {
+                Id = d.Id,
+                Text = $"{d.FirstName} {d.LastName}"
+            }).ToListAsync();
         }
 
-        public async Task<List<CheckboxHelper>> BuildCheckboxList(bool isActor,Movie editMovie)
+        public async Task<List<CheckboxHelper>> BuildCheckboxList(bool isActor, Movie editMovie)
         {
             var checkboxList = await BuildCheckboxList(isActor);
-            foreach(var checkbox in checkboxList)
+            foreach (var checkbox in checkboxList)
             {
-                if(isActor)
+                if (isActor)
                 {
                     if (editMovie.Actors.Any(m => m.Id == checkbox.Id))
                     {

@@ -19,17 +19,19 @@ namespace Wba.Oefening.RateAMovie.Web.Controllers
     {
         private readonly MovieContext _movieContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly FileService _fileService;
-        private readonly FormHelpersService _formHelpersService;
+        private readonly IFileService _fileService;
+        private readonly IFormHelpersService _formHelpersService;
 
         public MoviesController(MovieContext movieContext,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IFormHelpersService formHelpersService,
+            IFileService fileService)
         {
             //injection here!!
             _movieContext = movieContext;
             _webHostEnvironment = webHostEnvironment;
-            _fileService = new FileService();
-            _formHelpersService = new FormHelpersService(_movieContext);
+            _formHelpersService = formHelpersService;
+            _fileService = fileService;
         }
         public async Task<IActionResult> Index()
         {
