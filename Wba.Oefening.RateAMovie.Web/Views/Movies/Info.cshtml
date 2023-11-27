@@ -1,0 +1,43 @@
+﻿@model MoviesInfoViewModel
+
+<h2>@ViewBag.PageTitle</h2>
+<div class="card text-center mx-auto" style="width: 22rem;">
+    <img src="/images/movies/@Model.ImagePath" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.ReleaseDate.ToString("dd/MM/yyyy")</h6>
+
+        <dl>
+            <dt>Company</dt>
+            <dd>
+                
+                    <a asp-controller="Companies" asp-action="ShowInfo"
+                       asp-route-id="@Model.Company.Id" class="card-link">@Model.Company.Item</a>
+                
+            </dd>
+        </dl>
+        <dl>
+                <dt>Actor(s)</dt>
+                @foreach (var actor in Model.Actors)
+                {
+                    <dd>
+                        <a asp-controller="Actors" asp-action="ShowInfo"
+                           asp-route-id="@actor.Id" class="card-link">@actor.Item</a>
+                    </dd>
+                }
+            </dl>
+            <dl>
+                <dt>Director(s)</dt>
+                @foreach (var director in Model.Directors)
+                {
+                    <a asp-controller="Directors" asp-action="ShowInfo"
+                       asp-route-id="@director.Id" class="card-link">@director.Item</a>
+                }
+                
+            </dl>
+</div>
+    <div class="card-footer">
+        <a asp-controller="Movies"
+           asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+</div>

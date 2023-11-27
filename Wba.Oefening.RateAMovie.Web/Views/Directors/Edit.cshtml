@@ -1,0 +1,12 @@
+﻿@model DirectorsAddViewModel
+
+
+<h2>Edit Director</h2>
+
+<form asp-controller="Directors" asp-action="Edit" method="post">
+    <div class="form-group">
+        <input asp-for="Id">
+    </div>
+    <partial name="_AddPersonFormPartialView" model="@Model" />
+</form>
+

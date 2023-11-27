@@ -1,0 +1,35 @@
+﻿@model ActorsIndexViewModel
+
+
+<h2>Actors</h2>
+<table class="table table-condensed table-hover table-responsive">
+    <tr>
+        <th>Name</th>
+        <th colspan="2">Action</th>
+    </tr>
+    @foreach(var actor in Model.Actors)
+    {
+<tr>
+    <td>@actor.Item</td>
+    <td>
+        <a asp-controller="Actors"
+           asp-action="ShowInfo"
+           asp-route-Id="@actor.Id" class="btn btn-info">Info</a>
+    </td>
+    <td>
+        <a asp-controller="Actors"
+           asp-action="Edit"
+           asp-route-Id="@actor.Id" class="btn btn-primary">Edit</a>
+    </td>
+    <td>
+        <a asp-controller="Actors"
+           asp-action="ConfirmDelete"
+           asp-route-Id="@actor.Id" class="btn btn-danger">Delete</a>
+    </td>
+</tr>
+    }
+</table>
+<div class="row">
+    <a asp-controller="Actors"
+       asp-action="Add" class="btn btn-outline-primary">Add</a>
+</div>

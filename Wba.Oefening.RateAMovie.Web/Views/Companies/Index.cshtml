@@ -1,0 +1,27 @@
+﻿@model CompaniesIndexViewModel
+
+<h2>Movie companies</h2>
+<table class="table table-hover table-responsive">
+    <tr>
+        <th>Company</th>
+        <th colspan="2">Action</th>
+    </tr>
+    @foreach(var company in Model.Companies)
+    {
+        <tr>
+            <td>@company.Item</td>
+            <td>
+                <a asp-controller="Companies"
+                   asp-action="ShowInfo"
+                   asp-route-Id="@company.Id" class="btn btn-info">Info</a>
+            </td>
+            <td><a 
+                   asp-controller="Companies"asp-action="Edit" asp-route-id="@company.Id"
+                   class="btn btn-primary">Edit</a></td>
+            <td><a asp-controller="Companies" asp-action="ConfirmDelete" asp-route-id="@company.Id"
+                    class="btn btn-danger">Delete</a></td>
+        </tr>
+    }
+</table>
+<a asp-controller="Companies" asp-action="Add"
+   class="btn btn-outline-primary">Add</a>

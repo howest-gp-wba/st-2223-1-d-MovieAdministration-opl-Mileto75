@@ -1,0 +1,38 @@
+﻿@model MoviesAddUpdateMovieViewModel
+<div class="form-group">
+    <label asp-for="Title"></label>
+    <input asp-for="Title" class="form-control">
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="ReleaseDate"></label>
+    <input asp-for="ReleaseDate" class="form-control">
+    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="CompanyId"></label>
+    <select class="form-control" asp-for="CompanyId" asp-items="@Model.Companies"></select>
+</div>
+<div class="form-group">
+    @for (int i = 0; i < Model.Actors.Count; i++)
+    {
+        <label>@Model.Actors[i].Text</label>
+        <input asp-for="@Model.Actors[i].IsSelected" />
+        <input asp-for="@Model.Actors[i].Id" />
+        <input asp-for="@Model.Actors[i].Text" />
+    }
+</div>
+<div class="form-group">
+    @for (int i = 0; i < Model.Directors.Count; i++)
+    {
+        <label>@Model.Directors[i].Text</label>
+        <input asp-for="@Model.Directors[i].IsSelected" />
+        <input asp-for="@Model.Directors[i].Id" />
+        <input asp-for="@Model.Directors[i].Text" />
+    }
+</div>
+<div class="form-group">
+    <label asp-for="Image"></label>
+    <input asp-for="Image" class="form-control">
+    <span asp-validation-for="Image" class="text-danger"></span>
+</div>

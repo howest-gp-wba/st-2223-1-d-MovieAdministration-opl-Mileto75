@@ -1,0 +1,9 @@
+﻿@model MoviesAddUpdateMovieViewModel
+
+<h2>Add a movie</h2>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-controller="Movies" asp-action="Add" method="post" enctype="multipart/form-data">
+    <partial name="_MovieFormPartial" model="@Model" />
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+

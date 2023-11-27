@@ -1,0 +1,13 @@
+﻿@model PersonShowInfoViewModel
+
+<h2>@Model.Name</h2>
+<div class="list-group">
+    @foreach(var movie in Model.Movies)
+    {
+        <div class="list-group-item-info"><a asp-controller="Movies"
+                                             asp-action="Info"
+                                             asp-route-Id="@movie.Id"
+                                             class="alert-link">@movie.Item</a></div>
+    }
+</div>
+

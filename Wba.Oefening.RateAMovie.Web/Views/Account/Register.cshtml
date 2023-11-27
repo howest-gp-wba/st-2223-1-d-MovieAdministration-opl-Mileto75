@@ -1,0 +1,35 @@
+﻿@model AccountRegisterViewModel
+
+<div class="col-lg-5 mx-auto table-bordered m-4 p-4">
+    <h2>Please register</h2>
+    <form asp-controller="Account" asp-action="Register" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="alert text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Firstname"></label>
+            <input asp-for="Firstname" class="form-control" />
+            <span asp-validation-for="Firstname" class="alert text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Lastname"></label>
+            <input asp-for="Lastname" class="form-control" />
+            <span asp-validation-for="Lastname" class="alert text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="alert text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PasswordCheck"></label>
+            <input asp-for="PasswordCheck" class="form-control" />
+            <span asp-validation-for="PasswordCheck" class="alert text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a asp-controller="Account" asp-action="Login">Log in instead?</a>
+    </form>
+</div>

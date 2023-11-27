@@ -1,0 +1,12 @@
+﻿@model DirectorsAddViewModel
+<div class="form-group">
+    <label asp-for="Firstname"></label>
+    <input class="form-control" asp-for="Firstname">
+    <span class="text-danger" asp-validation-for="Firstname"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Lastname"></label>
+    <input class="form-control" asp-for="Lastname">
+    <span class="text-danger" asp-validation-for="Lastname"></span>
+</div>
+<button type="submit" class="btn btn-primary">Save</button>
